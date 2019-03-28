@@ -1,4 +1,4 @@
-package physics
+package Physics
 
 object Physics {
   def computePotentialLocation(obj: PhysicalObject, time: Double): PhysicsVector = {

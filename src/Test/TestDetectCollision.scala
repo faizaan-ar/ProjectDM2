@@ -1,9 +1,22 @@
 package Test
 
-import Game._
-import org.scalatest.FunSuite
+import Game.{Board, Bullet, Tank, TankGame}
+import Physics._
+import org.scalatest._
 
 class TestDetectCollision extends FunSuite {
+  test("ComputeLocation") {
+    val a: PhysicalObject = new PhysicalObject(new PhysicsVector(0,0,0), new PhysicsVector(1,1,1))
+    val b: PhysicalObject = new PhysicalObject(new PhysicsVector(5,10,0), new PhysicsVector(1,1,-1))
+
+    val c: PhysicsVector = new PhysicsVector(10,10,10)
+    val d: PhysicsVector = new PhysicsVector(-5,10,0)
+
+    val e: Boundary = new Boundary(new PhysicsVector(0,5,10), new PhysicsVector(0,15,10))
+
+    assert(Physics.detectCollision(a, c, e) == true, a)
+    assert(Physics.detectCollision(b, d, e) == false, b)
+  }
   test("ComputeLocation") {
     val b: Board = new Board
     val t1: Tank = new Tank(100, 10, 5)
