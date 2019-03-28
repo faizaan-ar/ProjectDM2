@@ -1,4 +1,4 @@
-package gui
+package GUI
 
 import javafx.scene.input.{KeyCode, KeyEvent, MouseEvent}
 import scalafx.animation.AnimationTimer
@@ -94,4 +94,4 @@ object Game extends JFXApp {
   }
 
 }
-// hello
+// hello world
