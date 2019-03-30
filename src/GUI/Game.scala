@@ -95,4 +95,3 @@ object Game extends JFXApp {
 
 }
 // hello world 123456789
-// lol
