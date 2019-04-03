@@ -40,4 +40,9 @@ object TankGame {
     t1.position = List(r1,r2)
     b.Tanks += t1
   }
+  var timeInState: Double = 0.0
+
+  def update(dt: Double): Unit = {
+    timeInState += dt
+  }
 }

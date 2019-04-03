@@ -7,8 +7,12 @@ import scalafx.application.JFXApp.PrimaryStage
 import scalafx.scene.paint.Color
 import scalafx.scene.shape.{Circle, Rectangle, Shape}
 import scalafx.scene.{Group, Scene}
+import scalafx.scene.paint._
 
 object Game extends JFXApp {
+
+  val enemies = List(Circle(10,10,10))
+  val play = List(Circle(300,100,20))
 
   val windowWidth: Double = 800
   val windowHeight: Double = 600
@@ -74,6 +78,21 @@ object Game extends JFXApp {
     scene = new Scene(windowWidth, windowHeight) {
       content = List(sceneGraphics)
 
+      var lastTime: Long = 0
+      val speed1 = 0
+      val speed2 = 1
+      val timer = AnimationTimer(t => {
+        if (lastTime>0){
+          val delta = (t - lastTime)/100
+          player.translateX.value += speed2
+        }
+        lastTime = t
+
+      })
+      timer.start()
+
+
+
       // add an EventHandler[KeyEvent] to control player movement
       addEventHandler(KeyEvent.KEY_PRESSED, (event: KeyEvent) => keyPressed(event.getCode))
 
@@ -88,6 +107,8 @@ object Game extends JFXApp {
         shape.rotate.value += 0.5
       }
     }
+
+
 
     // Start Animations. Calls update 60 times per second (takes update as an argument)
     AnimationTimer(update).start()
