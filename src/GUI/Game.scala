@@ -12,6 +12,8 @@ import scalafx.scene.paint._
 
 object Game extends JFXApp {
 
+  val speed20 = 1
+
   val windowWidth: Double = 800
   val windowHeight: Double = 600
 
@@ -67,16 +69,14 @@ object Game extends JFXApp {
   def shoot(centerXX: Double, centerYY: Double): Unit = {
 
     var lastTime: Long = 0
-    val speed1 = 0
-    val speed2 = 1
     val timer = AnimationTimer(t => {
       if (lastTime > 0) {
         val delta = (t - lastTime) / 100
         val dx = centerXX - en.centerX.value
         val dy = centerYY - en.centerY.value
         val dis = math.sqrt(dx * dx + dy * dy)
-        en.centerX = en.centerX.value + dx / dis * speed2
-        en.centerY = en.centerY.value + dy / dis * speed2
+        en.centerX = en.centerX.value + dx / dis * speed20
+        en.centerY = en.centerY.value + dy / dis * speed20
       }
       lastTime = t
 
