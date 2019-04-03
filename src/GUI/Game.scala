@@ -15,7 +15,7 @@ object Game extends JFXApp {
   val windowWidth: Double = 800
   val windowHeight: Double = 600
 
-  val playerCircleRadius:Double = 20
+  val playerCircleRadius: Double = 20
   val playerSpeed: Double = 10
 
   val rectangleWidth: Double = 60
@@ -30,6 +30,12 @@ object Game extends JFXApp {
     radius = playerCircleRadius
     fill = Color.Black
   }
+  val en = new Circle {
+    centerX = 100
+    centerY = 100
+    radius = playerCircleRadius
+    fill = Color.Black
+  }
   val play = new Circle {
     centerX = 500
     centerY = 300
@@ -38,6 +44,7 @@ object Game extends JFXApp {
   }
   sceneGraphics.children.add(enemies)
   sceneGraphics.children.add(play)
+  sceneGraphics.children.add(en)
 
   val player = new Rectangle() {
     width = rectangleWidth
@@ -57,7 +64,25 @@ object Game extends JFXApp {
   }
   sceneGraphics.children.add(player2)
 
+  def shoot(centerXX: Double, centerYY: Double): Unit = {
 
+    var lastTime: Long = 0
+    val speed1 = 0
+    val speed2 = 1
+    val timer = AnimationTimer(t => {
+      if (lastTime > 0) {
+        val delta = (t - lastTime) / 100
+        val dx = centerXX - en.centerX.value
+        val dy = centerYY - en.centerY.value
+        val dis = math.sqrt(dx * dx + dy * dy)
+        en.centerX = en.centerX.value + dx / dis * speed2
+        en.centerY = en.centerY.value + dy / dis * speed2
+      }
+      lastTime = t
+
+    })
+    timer.start()
+  }
 
   def drawRectangle(centerXX: Double, centerYY: Double): Unit = {
     val newRectangle = new Circle {
@@ -114,7 +139,7 @@ object Game extends JFXApp {
       addEventHandler(KeyEvent.KEY_PRESSED, (event: KeyEvent) => keyPressed(event.getCode))
 
       // add an EventHandler[MouseEvent] to draw a rectangle when the player clicks the screen
-      addEventHandler(MouseEvent.MOUSE_CLICKED, (event: MouseEvent) => drawRectangle(event.getX, event.getY))
+      addEventHandler(MouseEvent.MOUSE_CLICKED, (event: MouseEvent) => shoot(event.getX, event.getY))
     }
 
     // define a function for the action timer (Could also use a method)
