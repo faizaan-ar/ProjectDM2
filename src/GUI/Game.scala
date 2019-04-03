@@ -29,21 +29,21 @@ object Game extends JFXApp {
 
   var board = new Board()
 
-  val enemies = new Circle {
-    centerX = 100
-    centerY = 100
-    radius = playerCircleRadius
-    fill = Color.Black
-  }
+  //val enemies = new Circle {
+    //centerX = 100
+    //centerY = 100
+    //radius = playerCircleRadius
+    //fill = Color.Black
+  //}
 
-  val play = new Circle {
-    centerX = 500
-    centerY = 300
-    radius = playerCircleRadius
-    fill = Color.Black
-  }
-  sceneGraphics.children.add(enemies)
-  sceneGraphics.children.add(play)
+  //val play = new Circle {
+    //centerX = 500
+    //centerY = 300
+    //radius = playerCircleRadius
+    //fill = Color.Black
+  //}
+  //sceneGraphics.children.add(enemies)
+  //sceneGraphics.children.add(play)
 
 
   val player = new Rectangle() {
@@ -130,22 +130,22 @@ object Game extends JFXApp {
     scene = new Scene(windowWidth, windowHeight) {
       content = List(sceneGraphics)
 
-      var lastTime: Long = 0
-      val speed1 = 0
-      val speed2 = 1
-      val timer = AnimationTimer(t => {
-        if (lastTime>0){
-          val delta = (t - lastTime)/100
-          val dx = play.centerX.value - enemies.centerX.value
-          val dy = play.centerY.value - enemies.centerY.value
-          val dis = math.sqrt(dx * dx + dy * dy)
-          enemies.centerX = enemies.centerX.value + dx / dis * speed2
-          enemies.centerY = enemies.centerY.value + dy / dis * speed2
-        }
-        lastTime = t
+      //var lastTime: Long = 0
+      //val speed1 = 0
+      //val speed2 = 1
+      //val timer = AnimationTimer(t => {
+        //if (lastTime>0){
+          //val delta = (t - lastTime)/100
+          //val dx = play.centerX.value - enemies.centerX.value
+          //val dy = play.centerY.value - enemies.centerY.value
+          //val dis = math.sqrt(dx * dx + dy * dy)
+          //enemies.centerX = enemies.centerX.value + dx / dis * speed2
+          //enemies.centerY = enemies.centerY.value + dy / dis * speed2
+        //}
+        //lastTime = t
 
-      })
-      timer.start()
+      //})
+      //timer.start()
 
 
 
