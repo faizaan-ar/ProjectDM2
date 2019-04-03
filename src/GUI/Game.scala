@@ -153,7 +153,7 @@ object Game extends JFXApp {
       addEventHandler(KeyEvent.KEY_PRESSED, (event: KeyEvent) => keyPressed(event.getCode))
 
       // add an EventHandler[MouseEvent] to draw a rectangle when the player clicks the screen
-      addEventHandler(MouseEvent.MOUSE_CLICKED, (event: MouseEvent) => shoot(event.getX, event.getY, player.x.value, player.y.value))
+      addEventHandler(MouseEvent.MOUSE_CLICKED, (event: MouseEvent) => shoot(event.getX, event.getY, player.translateX.value, player.translateY.value))
     }
 
     // define a function for the action timer (Could also use a method)
