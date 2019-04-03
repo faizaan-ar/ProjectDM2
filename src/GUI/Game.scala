@@ -1,5 +1,6 @@
 package GUI
 
+import GUI.Game.playerCircleRadius
 import javafx.scene.input.{KeyCode, KeyEvent, MouseEvent}
 import scalafx.animation.AnimationTimer
 import scalafx.application.JFXApp
@@ -10,9 +11,6 @@ import scalafx.scene.{Group, Scene}
 import scalafx.scene.paint._
 
 object Game extends JFXApp {
-
-  val enemies = List(Circle(10,10,10))
-  val play = List(Circle(300,100,20))
 
   val windowWidth: Double = 800
   val windowHeight: Double = 600
@@ -25,6 +23,21 @@ object Game extends JFXApp {
 
   var allRectangles: List[Shape] = List()
   var sceneGraphics: Group = new Group {}
+
+  val enemies = new Circle {
+    centerX = 100
+    centerY = 100
+    radius = playerCircleRadius
+    fill = Color.Black
+  }
+  val play = new Circle {
+    centerX = 500
+    centerY = 300
+    radius = playerCircleRadius
+    fill = Color.Black
+  }
+  sceneGraphics.children.add(enemies)
+  sceneGraphics.children.add(play)
 
   val player = new Rectangle() {
     width = rectangleWidth
@@ -84,7 +97,11 @@ object Game extends JFXApp {
       val timer = AnimationTimer(t => {
         if (lastTime>0){
           val delta = (t - lastTime)/100
-          player.translateX.value += speed2
+          val dx = play.centerX.value - enemies.centerX.value
+          val dy = play.centerY.value - enemies.centerY.value
+          val dis = math.sqrt(dx * dx + dy * dy)
+          enemies.centerX = enemies.centerX.value + dx / dis * speed2
+          enemies.centerY = enemies.centerY.value + dy / dis * speed2
         }
         lastTime = t
 
