@@ -1,4 +1,4 @@
-package Game
+package GameObj
 
 object TankGame {
   def dealDamage(attacking: Tank, defending: Tank, b: Board): Unit ={

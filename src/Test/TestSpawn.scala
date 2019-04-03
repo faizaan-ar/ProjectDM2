@@ -1,6 +1,6 @@
 package Test
 
-import Game._
+import GameObj._
 import org.scalatest.FunSuite
 
 class TestSpawn extends FunSuite{

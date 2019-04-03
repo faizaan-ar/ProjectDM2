@@ -1,6 +1,6 @@
 package Test
 
-import Game.{Board, Bullet, Tank, TankGame}
+import GameObj.{Board, Bullet, Tank, TankGame}
 import Physics._
 import org.scalatest._
 

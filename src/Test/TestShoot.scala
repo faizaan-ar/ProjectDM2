@@ -1,6 +1,6 @@
 package Test
 
-import Game.{Board, Tank, TankGame}
+import GameObj.{Board, Tank, TankGame}
 import org.scalatest.FunSuite
 
 class TestShoot extends FunSuite{

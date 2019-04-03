@@ -1,6 +1,5 @@
 package GUI
 
-import GUI.Game.playerCircleRadius
 import javafx.scene.input.{KeyCode, KeyEvent, MouseEvent}
 import scalafx.animation.AnimationTimer
 import scalafx.application.JFXApp
@@ -9,6 +8,8 @@ import scalafx.scene.paint.Color
 import scalafx.scene.shape.{Circle, Rectangle, Shape}
 import scalafx.scene.{Group, Scene}
 import scalafx.scene.paint._
+import Physics.Boundary
+import GameObj._
 
 object Game extends JFXApp {
 
@@ -25,6 +26,8 @@ object Game extends JFXApp {
 
   var allRectangles: List[Shape] = List()
   var sceneGraphics: Group = new Group {}
+
+  var board = new Board()
 
   val enemies = new Circle {
     centerX = 100
@@ -106,6 +109,7 @@ object Game extends JFXApp {
       case "H" => player2.translateX.value -= playerSpeed
       case "J" => player2.translateY.value += playerSpeed
       case "K" => player2.translateX.value += playerSpeed
+      
       case _ => println(keyCode.getName + " pressed with no action")
     }
   }
