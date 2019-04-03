@@ -35,12 +35,7 @@ object Game extends JFXApp {
     radius = playerCircleRadius
     fill = Color.Black
   }
-  val en = new Circle {
-    centerX = 100
-    centerY = 100
-    radius = playerCircleRadius
-    fill = Color.Black
-  }
+
   val play = new Circle {
     centerX = 500
     centerY = 300
@@ -49,7 +44,7 @@ object Game extends JFXApp {
   }
   sceneGraphics.children.add(enemies)
   sceneGraphics.children.add(play)
-  sceneGraphics.children.add(en)
+
 
   val player = new Rectangle() {
     width = rectangleWidth
@@ -69,8 +64,14 @@ object Game extends JFXApp {
   }
   sceneGraphics.children.add(player2)
 
-  def shoot(centerXX: Double, centerYY: Double): Unit = {
-
+  def shoot(centerXX: Double, centerYY: Double, v1: Double, v2: Double): Unit = {
+    val en = new Circle {
+      centerX = v1
+      centerY = v2
+      radius = playerCircleRadius
+      fill = Color.Black
+    }
+    sceneGraphics.children.add(en)
     var lastTime: Long = 0
     val timer = AnimationTimer(t => {
       if (lastTime > 0) {
@@ -85,6 +86,15 @@ object Game extends JFXApp {
 
     })
     timer.start()
+  }
+  def BB(): Unit = {
+    val en = new Circle {
+      centerX = player.getLayoutX
+      centerY = player.getLayoutY
+      radius = playerCircleRadius
+      fill = Color.Black
+    }
+    sceneGraphics.children.add(en)
   }
 
   def drawRectangle(centerXX: Double, centerYY: Double): Unit = {
@@ -143,7 +153,7 @@ object Game extends JFXApp {
       addEventHandler(KeyEvent.KEY_PRESSED, (event: KeyEvent) => keyPressed(event.getCode))
 
       // add an EventHandler[MouseEvent] to draw a rectangle when the player clicks the screen
-      addEventHandler(MouseEvent.MOUSE_CLICKED, (event: MouseEvent) => shoot(event.getX, event.getY))
+      addEventHandler(MouseEvent.MOUSE_CLICKED, (event: MouseEvent) => shoot(event.getX, event.getY, player.x.value, player.y.value))
     }
 
     // define a function for the action timer (Could also use a method)
