@@ -9,7 +9,6 @@ object Physics {
     x += obj.velocity.x * time
     y += obj.velocity.y * time
     z += obj.velocity.z * time
-
     if(z < 0) z = 0
 
     return new PhysicsVector(x, y, z)
