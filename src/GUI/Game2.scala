@@ -8,6 +8,7 @@ import scalafx.scene.shape.{Circle, Rectangle}
 import scalafx.scene.Scene
 import Physics._
 import GameObj._
+import scalafx.scene.control.TextField
 
 
 object Game2 extends JFXApp {
