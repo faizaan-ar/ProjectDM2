@@ -74,15 +74,22 @@ object Game2 extends JFXApp {
           var bulletV1: PhysicsVector = new PhysicsVector(board.Bullets(i).centerX.value - board.Bullets(i).radius.value, board.Bullets(i).centerY.value, 0)
           var bulletV2: PhysicsVector = new PhysicsVector(board.Bullets(i).centerX.value + board.Bullets(i).radius.value, board.Bullets(i).centerY.value, 0)
 
+          var bulletV3: PhysicsVector = new PhysicsVector(board.Bullets(i).centerX.value, board.Bullets(i).centerY.value - board.Bullets(i).radius.value, 0)
+          var bulletV4: PhysicsVector = new PhysicsVector(board.Bullets(i).centerX.value, board.Bullets(i).centerY.value + board.Bullets(i).radius.value, 0)
+
           for(j <- board.Tanks.indices){
             if(j != 0){
-              val lBound: PhysicsVector = new PhysicsVector(board.Tanks(j).translateX.value, board.Tanks(j).translateY.value + (board.Tanks(j).height.value / 2.0), 0)
-              val rBound: PhysicsVector = new PhysicsVector(board.Tanks(j).translateX.value, board.Tanks(j).translateY.value - (board.Tanks(j).height.value / 2.0), 0)
+              val lBound: PhysicsVector = new PhysicsVector(board.Tanks(j).translateX.value, board.Tanks(j).translateY.value + (board.Tanks(j).height.value), 0)
+              val rBound: PhysicsVector = new PhysicsVector(board.Tanks(j).translateX.value, board.Tanks(j).translateY.value - (board.Tanks(j).height.value), 0)
               val bound: Boundary = new Boundary(lBound, rBound)
-              if(!Physics.detectCollision(bulletV1, bulletV2, bound)){
+              val lBound2: PhysicsVector = new PhysicsVector(board.Tanks(j).translateX.value + (board.Tanks(j).width.value), board.Tanks(j).translateY.value, 0)
+              val rBound2: PhysicsVector = new PhysicsVector(board.Tanks(j).translateX.value - (board.Tanks(j).width.value), board.Tanks(j).translateY.value, 0)
+              val bound2: Boundary = new Boundary(lBound2, rBound2)
+              if(!Physics.detectCollision(bulletV1, bulletV2, bound) || !Physics.detectCollision(bulletV3, bulletV4, bound2) ){
                 board.Bullets -= board.Bullets(i)
                 board.Vectors -= board.Vectors(i)
               }
+
             }
           }
         }
