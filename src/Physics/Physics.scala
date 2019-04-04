@@ -24,11 +24,11 @@ object Physics {
     obj.velocity.z  = v
 
   }
-  def detectCollision(obj: PhysicalObject, vec: PhysicsVector, bound: Boundary): Boolean ={
-    val sX: Double = obj.location.x
-    val sY: Double = obj.location.y
-    val fX: Double = vec.x
-    val fY: Double = vec.y
+  def detectCollision(vec1: PhysicsVector, vec2: PhysicsVector, bound: Boundary): Boolean ={
+    val sX: Double = vec1.x
+    val sY: Double = vec1.y
+    val fX: Double = vec2.x
+    val fY: Double = vec2.y
     var crossX: Boolean = false
     var crossY: Boolean = false
 
@@ -42,25 +42,5 @@ object Physics {
     if(crossX && crossY) return false
     else return true
   }
-  def updateWorld(w: World, time: Double): Unit ={
-    var updated: PhysicsVector = new PhysicsVector(0,0,0)
-    var miss: Boolean = true
 
-    for(obj: PhysicalObject <- w.objects){
-      miss = true
-      updateVelocity(obj, w, time)
-      updated = computePotentialLocation(obj, time)
-
-      for(bound: Boundary <- w.boundaries){
-        if(miss) miss = detectCollision(obj, updated, bound)
-      }
-
-      if(miss){
-        obj.location.x = updated.x
-        obj.location.y = updated.y
-      }
-
-      obj.location.z = updated.z
-    }
-  }
 }
