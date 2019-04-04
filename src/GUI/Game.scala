@@ -37,13 +37,13 @@ object Game extends JFXApp {
   //}
 
   val play = new Circle {
-    centerX = 500
+    centerX = 400
     centerY = 300
-    radius = playerCircleRadius
-    fill = Color.Black
+    radius = 50
+    fill = Color.Green
   }
   //sceneGraphics.children.add(enemies)
-  //sceneGraphics.children.add(play)
+  sceneGraphics.children.add(play)
 
 
   val player = new Rectangle() {
