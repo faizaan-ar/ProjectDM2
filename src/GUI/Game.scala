@@ -36,12 +36,12 @@ object Game extends JFXApp {
     //fill = Color.Black
   //}
 
-  //val play = new Circle {
-    //centerX = 500
-    //centerY = 300
-    //radius = playerCircleRadius
-    //fill = Color.Black
-  //}
+  val play = new Circle {
+    centerX = 500
+    centerY = 300
+    radius = playerCircleRadius
+    fill = Color.Black
+  }
   //sceneGraphics.children.add(enemies)
   //sceneGraphics.children.add(play)
 
@@ -73,7 +73,9 @@ object Game extends JFXApp {
     }
     sceneGraphics.children.add(en)
     var lastTime: Long = 0
-    val timer = AnimationTimer(t => {
+    var l: Int = 0
+    var delay: Double = 5.0
+    val timer: AnimationTimer = AnimationTimer(t => {
       if (lastTime > 0) {
         val delta = (t - lastTime) / 100
         val dx = centerXX - en.centerX.value
@@ -81,6 +83,13 @@ object Game extends JFXApp {
         val dis = math.sqrt(dx * dx + dy * dy)
         en.centerX = en.centerX.value + dx / dis * speed20
         en.centerY = en.centerY.value + dy / dis * speed20
+        if (dis < 0.5){
+          sceneGraphics.children.remove(en)
+        }
+        //delay += delta
+        //if (delay < 0){
+          //delay = 5.0
+        //}
       }
       lastTime = t
 
