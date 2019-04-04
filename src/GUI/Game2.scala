@@ -88,6 +88,8 @@ object Game2 extends JFXApp {
               if(!Physics.detectCollision(bulletV1, bulletV2, bound) || !Physics.detectCollision(bulletV3, bulletV4, bound2) ){
                 board.Bullets -= board.Bullets(i)
                 board.Vectors -= board.Vectors(i)
+                board.Tanks -= board.Tanks(j)
+                board.Tanks += createRectangle()
               }
 
             }
@@ -99,8 +101,5 @@ object Game2 extends JFXApp {
     addEventHandler(KeyEvent.KEY_PRESSED, (event: KeyEvent) => keyPressed(event.getCode))
     // add an EventHandler[MouseEvent] to draw a circle when the board.Tanks(0) clicks the screen
     addEventHandler(MouseEvent.MOUSE_CLICKED, (event: MouseEvent) => shoot(event.getX, event.getY, board.Tanks(0).translateX.value, board.Tanks(0).translateY.value))
-
-
-
   }
 }
