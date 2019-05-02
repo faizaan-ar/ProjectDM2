@@ -34,8 +34,8 @@ class Game {
 
     blockTile(0, 0, level.gridWidth, level.gridHeight)
 
-//    level.towerLocations.foreach(tower => placeTower(tower.x, tower.y))
-//    level.wallLocations.foreach(wall => placeWall(wall.x, wall.y))
+    level.towerLocations.foreach(tower => placeTower(tower.x, tower.y))
+    level.wallLocations.foreach(wall => placeWall(wall.x, wall.y))
     players.values.foreach(player => player.location = startingVector())
 
     baseHealth = level.maxBaseHealth
@@ -67,14 +67,14 @@ class Game {
   }
 
 
-//  def placeWall(x: Int, y: Int): Unit = {
-//    blockTile(x, y)
-//    walls = new Wall(x, y) :: walls
-//  }
-//
-//  def placeTower(x: Int, y: Int): Unit = {
-//    towers = new DodgeBallTower(x, y) :: towers
-//  }
+  def placeWall(x: Int, y: Int): Unit = {
+    blockTile(x, y)
+    walls = new Wall(x, y) :: walls
+  }
+
+  def placeTower(x: Int, y: Int): Unit = {
+    towers = new DodgeBallTower(x, y) :: towers
+  }
 
 
   def addProjectile(projectile: PhysicalObject): Unit = {
@@ -125,11 +125,100 @@ class Game {
 
   def checkForBaseDamage(): Unit = {
     // TODO: Objective 1
+    val a = level.base.x + .5
+    val b = level.base.y + .5
+    var p = 0
+    //    print(a, b)
+    for (i <- players){
+      p = p + 1
+      if (p == 1){
+        //          var t = i._1
+        //          print(players.values)
+        //PhysicalObject((0.5, 4.5, 0.0)
+        //(0.5, 4.5, 0.0)
+        //(24,4)
+        var aa = i._2.location.x
+        var bb = i._2.location.y
+        var aaa = aa - a
+        var aaaa = a - aa
+        var bbb = bb - b
+        var bbbb = b - bb
+        var last = i._2.location.distance2d(new PhysicsVector(a,b))
+        if(aaa <= playerSize){
+          if (aaaa <= playerSize){
+            print("aaaa")
+            if(bbb <= playerSize){
+              print("bbb")
+              if (bbbb <= playerSize){
+                print("bbbb")
+                print(i._2.location.x, a)
+                baseHealth = baseHealth - 1
+                //                  removePlayer(i._1)
+                //                  addPlayer(i._1)
+                i._2.location = startingVector()
+
+              }
+            }
+          }
+        }
+        //          if (last <= playerSize){
+        //            print(i._2.location.x, a)
+        //            baseHealth = baseHealth - 1
+        //            removePlayer(i._1)
+        //            addPlayer(i._1)
+        //          }
+
+      }
+      else {
+        p = 0
+      }
+    }
   }
 
 
   def checkForPlayerHits(): Unit = {
     // TODO: Objective 3
+    for (i <- players){
+      //      checkForBaseDamage()
+      //      var a: List[PhysicalObject] = List()
+      var b = -1
+      for (k <- projectiles){
+        //        checkForBaseDamage()
+
+        b = b + 1
+        var xx = i._2.location.x
+        var xy = i._2.location.y
+        var yx = k.location.x
+        var yy = k.location.y
+        var xd = Math.abs(xx - yx)
+        var yd = Math.abs(xy - yy)
+        var f1 = i._2.location
+        var f2 = k.location
+        var lastTry = f1.distance2d(f2)
+
+        //(10.578285599999996,4.5,11.660658000000002,4.5)
+        //(1.7445812999999966,0.0)
+        if (lastTry < playerSize){
+          //          print(xd,yd)
+          i._2.location = startingVector()
+          k.destroy()
+
+          //          i._2.velocity = new PhysicsVector(0,0)
+          //          removePlayer(i._1)
+          //          addPlayer(i._1)
+          //          print(projectiles)
+          //List(PhysicalObject((11.83279310504388, 4.5596905397548415, 9.234522364001685E-4), (-4.843319330220225, -1.2418767513385192, -7.571681000000002)), PhysicalObject((11.714159500000004, 4.5, 9.234522364001685E-4), (-5.0, 0.0, -7.571681000000002)), PhysicalObject((11.83279310504388, 4.44030946024516, 9.234522364001685E-4), (-4.843319330220225, 1.2418767513385192, -7.571681000000002)))
+
+
+          //          print(projectiles)
+          //List(PhysicalObject((11.965117499999998, 4.5, 0.37493365792620414), (-5.0, 0.0, -7.069765000000002)), PhysicalObject((12.075887051538562, 4.377977679092678, 0.37493365792620414), (-4.843319330220225, 1.2418767513385192, -7.069765000000002)), PhysicalObject((12.075887051538562, 4.622022320907322, 0.37493365792620414), (-4.843319330220225, -1.2418767513385192, -7.069765000000002)))List(PhysicalObject((11.965117499999998, 4.5, 0.37493365792620414), (-5.0, 0.0, -7.069765000000002)), PhysicalObject((12.075887051538562, 4.377977679092678, 0.37493365792620414), (-4.843319330220225, 1.2418767513385192, -7.069765000000002)), PhysicalObject((12.075887051538562, 4.622022320907322, 0.37493365792620414), (-4.843319330220225, -1.2418767513385192, -7.069765000000002)))List(PhysicalObject((11.965117499999998, 4.5, 0.37493365792620414), (-5.0, 0.0, -7.069765000000002)), PhysicalObject((12.075887051538562, 4.377977679092678, 0.37493365792620414), (-4.843319330220225, 1.2418767513385192, -7.069765000000002)), PhysicalObject((12.075887051538562, 4.622022320907322, 0.37493365792620414), (-4.843319330220225, -1.2418767513385192, -7.069765000000002)))
+          //List(PhysicalObject((11.961451508612877, 4.397620667225802, 0.20924604469960065), (-4.846499476099184, 1.2294075110272986, -7.301245999999999)), PhysicalObject((11.961451508612877, 4.6023793327741975, 0.20924604469960065), (-4.846499476099184, -1.2294075110272986, -7.301245999999999)), PhysicalObject((11.849376999999999, 4.5, 0.20924604469960065), (-5.0, 0.0, -7.301245999999999)))
+          //          print(k)
+          //          a = a :+ k
+        }
+      }
+    }
+    //    print(projectiles)
   }
 
 
